@@ -6,17 +6,19 @@ import { TablesResponse } from "./components/TablesResponse";
 import { ModalAdd } from "./components/ModalAdd";
 import { ModalConfig } from "./components/ModalConfig";
 import { PhraseStorage } from "./PhraseStorage/PhraseStorage";
+import type { dataSave } from "./props/dataSaveProps";
 
 function App() {
-  const [ModalAddbutton, setModalAddbutton] = useState(false);
-  const [ModalConfigbutton, setModalConfigbutton] = useState(false);
-  const [dataSave, setDataSave] = useState({ table: [], time: null });
+  const [ModalAddbutton, setModalAddbutton] = useState<boolean>(false);
+  const [ModalConfigbutton, setModalConfigbutton] = useState<boolean>(false);
+  const [dataSave, setDataSave] = useState<dataSave>({ table: [], time: null });
 
   useEffect(() => {
     const time = PhraseStorage.getAll(2);
     if (time.length === 0) {
       PhraseStorage.add(180, 2);
     }
+    console.log(dataSave, "ola");
   }, []);
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function App() {
         <Content dataSave={dataSave} setDataSave={setDataSave} />
       </div>
       <div className={styles.table}>
-        <TablesResponse dataSave={dataSave} setDataSave={setDataSave} />
+        <TablesResponse dataSave={dataSave} />
       </div>
       {ModalAddbutton ? <ModalAdd setModalAddbutton={setModalAddbutton} /> : ""}
       {ModalConfigbutton ? (

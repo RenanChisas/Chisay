@@ -1,20 +1,35 @@
 import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 import { PhraseStorage } from "../../PhraseStorage/PhraseStorage.ts";
+import type { phraseProps } from "../../props/phraseProps.ts";
+import type { dataSave } from "../../props/dataSaveProps.ts";
 
-export function Content({ dataSave, setDataSave }) {
+type ContentProps = {
+  dataSave: dataSave;
+  setDataSave: React.Dispatch<React.SetStateAction<dataSave>>;
+};
+
+type WordItem = {
+  word: string;
+  active: boolean;
+};
+
+export function Content({ dataSave, setDataSave }: ContentProps) {
   const [start, setStart] = useState(false);
   const [timer, setTimer] = useState(100);
-  const [phrase, setPhrase] = useState([]);
-  const [words, setWords] = useState([]);
+  const [phrase, setPhrase] = useState<(phraseProps | string)[]>([]);
+  const [words, setWords] = useState<WordItem[]>([]);
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
-  const [dataDB, setdataDB] = useState([]);
-  const [whichDB, setwhichDB] = useState(0);
+  const [dataDB, setdataDB] = useState<phraseProps[]>([]);
+  const [whichDB] = useState(0);
 
   useEffect(() => {
     const tempDB = PhraseStorage.getAll(whichDB);
-    tempDB.sort((a, b) => b.difficulty - a.difficulty);
+    tempDB.sort(
+      (a: { difficulty: number }, b: { difficulty: number }) =>
+        b.difficulty - a.difficulty
+    );
     const time = PhraseStorage.getAll(2);
     const seconds = time[0];
     setTimer(seconds);
@@ -22,7 +37,7 @@ export function Content({ dataSave, setDataSave }) {
     choosePhrase();
   }, [start]);
 
-  function shuffle(array) {
+  function shuffle(array: WordItem[]) {
     let currentIndex = array.length,
       randomIndex;
     while (currentIndex !== 0) {
@@ -94,13 +109,24 @@ export function Content({ dataSave, setDataSave }) {
       auxDB.difficulty += 10;
       PhraseStorage.updateAt(auxDB.id - 1, auxDB, 0);
     }
-    setDataSave((prev) => ({
-      ...prev,
-      table: [...prev.table, [phraseString, phraseCheck, correct]],
-    }));
+    setDataSave((prev: dataSave) =>
+      addToTable(prev, phraseString, phraseCheck, correct)
+    );
 
     console.log("Saved:", { phraseString, phraseCheck, correct });
   };
+
+  function addToTable(
+    prev: dataSave,
+    phraseString: string,
+    phraseCheck: string,
+    correct: boolean
+  ): dataSave {
+    return {
+      ...prev,
+      table: [...prev.table, [phraseString, phraseCheck, correct]],
+    };
+  }
 
   const startHandle = () => {
     const tempDB = PhraseStorage.getAll(whichDB);
@@ -148,8 +174,8 @@ export function Content({ dataSave, setDataSave }) {
     });
   };
 
-  const activeWord = (indexToToggle, word) => {
-    setWords((prevWords) =>
+  const activeWord = (indexToToggle: number, word: string) => {
+    setWords((prevWords: WordItem[]) =>
       prevWords.map((item, index) =>
         index === indexToToggle ? { ...item, active: !item.active } : item
       )

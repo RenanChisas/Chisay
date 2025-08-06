@@ -2,14 +2,17 @@ import { useEffect, useState } from "react";
 import { PhraseStorage } from "../../PhraseStorage/PhraseStorage.ts";
 import styles from "./styles.module.css";
 
-export function ModalConfig({ setModalConfigbutton }) {
-  const [phrase, setPhrase] = useState("");
-  const [wordsinput, setwordsinput] = useState("");
-  const [words, setWords] = useState<string[]>([]);
-  const [whichDB, setwhichDB] = useState(0);
-  const [timer, setTimer] = useState(100);
+type ModalConfigbuttonProps = {
+  setModalConfigbutton: (value: boolean) => void;
+};
 
-  const [minutes, setMinutes] = useState<number | "">(30);
+export function ModalConfig({ setModalConfigbutton }: ModalConfigbuttonProps) {
+  const [phrase] = useState("");
+  const [wordsinput, setwordsinput] = useState("");
+  const [, setWords] = useState<string[]>([]);
+  const [, setTimer] = useState(100);
+
+  const [minutes, setMinutes] = useState<number>(30);
 
   useEffect(() => {
     const time = PhraseStorage.getAll(2);
@@ -26,11 +29,6 @@ export function ModalConfig({ setModalConfigbutton }) {
 
   const handleMinutesChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const val = event.target.value;
-
-    if (val === "") {
-      setMinutes("");
-      return;
-    }
 
     if (/^\d+$/.test(val)) {
       const num = Number(val);
