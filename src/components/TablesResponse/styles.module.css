@@ -1,0 +1,49 @@
+.table {
+  border: 1px solid;
+  width: auto;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.table th {
+  background-color: #397097;
+  padding: 1rem 6rem;
+  border-left: 1px solid #000000;
+  color: white;
+}
+.table td {
+  padding: 0.5rem 6rem;
+  border-top: 1px solid #000000;
+  border-left: 1px solid #000000;
+  color: white;
+}
+
+.table table {
+  border-collapse: collapse;
+
+  width: 100%;
+}
+
+.correct {
+  background-color: #2e7d32de;
+}
+
+.error {
+  background-color: #c62828d3;
+}
+
+.button {
+  padding: 1rem;
+  font-size: 1.5rem;
+  border-radius: 0.5rem;
+  color: #ffffff;
+  font-weight: bold;
+  background-color: #397097;
+  border: none;
+  margin-bottom: 2rem;
+  cursor: pointer;
+}
+.button:hover {
+  filter: brightness(90%);
+}

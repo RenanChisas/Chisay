@@ -1,0 +1,73 @@
+.start {
+  margin: 9.5rem;
+}
+
+.start button {
+  background-color: #608cab;
+  border: none;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.start button:hover {
+  filter: brightness(110%);
+}
+
+.content {
+  display: flex;
+  width: 50%;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  background-color: #4d7ea1;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.content h1 {
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2.5rem;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
+  padding: 2.5rem;
+  gap: 0.5rem;
+}
+.buttonWord {
+  padding: 0.5rem;
+  border: none;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 1.8rem;
+  background-color: #608cab;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+.buttonWord:hover {
+  background-color: #2f6891;
+}
+
+.active {
+  background-color: #215478;
+  color: white;
+}
+
+.phrase {
+  display: flex;
+  align-items: center;
+  min-height: 10rem;
+}
