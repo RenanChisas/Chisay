@@ -4,9 +4,12 @@ import { CiSettings } from "react-icons/ci";
 import { HiDotsVertical } from "react-icons/hi";
 import { GiNothingToSay } from "react-icons/gi";
 
-export function Header({ setModalAddbutton }) {
+export function Header({ setModalAddbutton, setModalConfigbutton }) {
   const openeModal = () => {
     setModalAddbutton(true);
+  };
+  const openeModalConfig = () => {
+    setModalConfigbutton(true);
   };
   return (
     <div className={styles.headerMenu}>
@@ -24,7 +27,11 @@ export function Header({ setModalAddbutton }) {
           {" "}
           <IoIosAddCircleOutline /> <div>Add Phrase</div>
         </a>
-        <a className={styles.button}>
+        <a
+          onClick={openeModalConfig}
+          className={styles.button}
+          className={styles.button}
+        >
           {" "}
           <CiSettings /> <div>Setting</div>
         </a>

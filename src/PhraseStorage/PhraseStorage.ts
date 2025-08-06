@@ -1,37 +1,40 @@
 export class PhraseStorage {
-  static key = "phrases";
+  static key1 = ["phrases", "verbs", "Timer"];
 
-  static getAll() {
-    const data = localStorage.getItem(this.key);
+  static getAll(key = 0) {
+    console.log(this.key1[key]);
+    const data = localStorage.getItem(this.key1[key]);
     return data ? JSON.parse(data) : [];
   }
-
-  static saveAll(phrases) {
-    localStorage.setItem(this.key, JSON.stringify(phrases));
+  static getAt(index: number, key = 0) {
+    const data = this.getAll(key);
+    return data[index];
+  }
+  static saveAll(phrases, key) {
+    localStorage.setItem(this.key1[key], JSON.stringify(phrases));
   }
 
-  static add(phraseData) {
-    const current = this.getAll();
-    console.log("AAAAAAAAAAAAAAAAAAAA");
+  static add(phraseData, key) {
+    const current = this.getAll(key);
     current.push(phraseData);
-    this.saveAll(current);
+    this.saveAll(current, key);
   }
 
-  static clear() {
-    localStorage.removeItem(this.key);
+  static clear(key) {
+    localStorage.removeItem(this.key1[key]);
   }
 
-  static deleteAt(index) {
-    const current = this.getAll();
+  static deleteAt(index, key) {
+    const current = this.getAll(key);
     current.splice(index, 1);
-    this.saveAll(current);
+    this.saveAll(current, key); // you were missing the key here too!
   }
 
-  static updateAt(index, newData) {
-    const current = this.getAll();
+  static updateAt(index, newData, key) {
+    const current = this.getAll(key);
     if (index >= 0 && index < current.length) {
       current[index] = newData;
-      this.saveAll(current);
+      this.saveAll(current, key); // same here
     }
   }
 }

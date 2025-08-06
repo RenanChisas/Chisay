@@ -10,9 +10,14 @@ export function Content({ dataSave, setDataSave }) {
   const [index, setIndex] = useState(0);
   const [count, setCount] = useState(0);
   const [dataDB, setdataDB] = useState([]);
+  const [whichDB, setwhichDB] = useState(0);
 
   useEffect(() => {
-    const tempDB = PhraseStorage.getAll();
+    const tempDB = PhraseStorage.getAll(whichDB);
+    tempDB.sort((a, b) => b.difficulty - a.difficulty);
+    const time = PhraseStorage.getAll(2);
+    const seconds = time[0];
+    setTimer(seconds);
     setdataDB(tempDB);
     choosePhrase();
   }, [start]);
@@ -75,7 +80,20 @@ export function Content({ dataSave, setDataSave }) {
     const cleanCorrectPhrase = phraseCheck.replace(/\s+/g, "").toUpperCase();
 
     const correct = cleanUserPhrase === cleanCorrectPhrase;
+    const auxItem = { ...dataDB[index] };
 
+    const auxDB = PhraseStorage.getAt(auxItem.id - 1, whichDB);
+    if (correct) {
+      if (auxDB.difficulty > 998) {
+        auxDB.difficulty = 0;
+      } else if (auxDB.difficulty > 0) {
+        auxDB.difficulty -= 10;
+      }
+      PhraseStorage.updateAt(auxDB.id - 1, auxDB, 0);
+    } else {
+      auxDB.difficulty += 10;
+      PhraseStorage.updateAt(auxDB.id - 1, auxDB, 0);
+    }
     setDataSave((prev) => ({
       ...prev,
       table: [...prev.table, [phraseString, phraseCheck, correct]],
@@ -84,8 +102,8 @@ export function Content({ dataSave, setDataSave }) {
     console.log("Saved:", { phraseString, phraseCheck, correct });
   };
 
-  const startHandle = async () => {
-    const tempDB = await PhraseStorage.getAll();
+  const startHandle = () => {
+    const tempDB = PhraseStorage.getAll(whichDB);
     choosePhrase();
     if (tempDB.length > 0) {
       console.log(tempDB);
@@ -116,7 +134,6 @@ export function Content({ dataSave, setDataSave }) {
   const changeCount = (value: number) => {
     if (index < dataDB.length) {
       setCount((prev) => prev + value);
-    } else {
     }
   };
   const addOrRemoveWord = (word: string) => {

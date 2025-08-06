@@ -29,7 +29,7 @@
   justify-content: space-between;
 }
 .title {
-  margin-left: 25%;
+  margin-left: 34%;
   color: #397097;
   font-size: 0.8rem;
 }
@@ -58,10 +58,12 @@
 .modalContainer .body input {
   width: 90%;
   padding: 0.3rem;
+  background-color: #efefef;
   font-size: 1rem;
-  border: 1px solid;
+  border: none;
   border-radius: 0.5rem;
 }
+
 .inputs {
   width: 100%;
   display: flex;
@@ -72,8 +74,8 @@
 .inputs label {
   text-align: start;
   color: #397097;
-  font-size: 1.5rem;
-  margin-bottom: -0.4rem;
+  font-size: 1.3rem;
+  margin-bottom: -0.2rem;
   width: 90%;
   padding: 0.3rem;
 }
@@ -81,19 +83,19 @@
 .modalContainer .footer {
   display: flex;
   background-color: #f4f4f4;
+
   justify-content: end;
 }
 
 .modalContainer .footer button {
-  padding: 0.6rem;
-  margin: 0.5rem;
+  padding: 0.6rem 1rem;
   font-size: 1rem;
   border-radius: 0.2rem;
   color: #ffffff;
   font-weight: bold;
 
   border: none;
-
+  margin: 0.5rem;
   cursor: pointer;
 }
 
@@ -101,12 +103,8 @@
   filter: brightness(90%);
 }
 
-.cfButton {
-  background-color: #2e7d32de;
-}
-
 .clButton {
-  background-color: #c62828d3;
+  background-color: #45474b;
 }
 
 .words {
@@ -121,4 +119,43 @@
   color: #ffffff;
   padding: 0.5rem;
   border-radius: 0.2rem;
+}
+
+.cleanDB {
+  display: flex;
+  flex-direction: column;
+  padding: 0rem 1rem;
+  width: 100%;
+}
+
+.cleanDB button {
+  padding: 0.6rem 0.2rem;
+  border: none;
+  font-size: 0.9rem;
+  text-align: start;
+  border-radius: 0.5rem;
+  color: #000000;
+  background-color: #efefef;
+
+  margin: 0.5rem 0.1rem;
+  cursor: pointer;
+}
+.cleanDB button:hover {
+  background-color: #b3b3b3;
+}
+
+.cleanDB label {
+  text-align: start;
+  color: #397097;
+  font-size: 1.3rem;
+  margin-bottom: -0.2rem;
+  width: 90%;
+  padding: 0.3rem;
+}
+
+.importDB {
+  display: flex;
+}
+.importDB button {
+  width: 100%;
 }

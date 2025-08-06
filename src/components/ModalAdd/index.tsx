@@ -6,6 +6,7 @@ export function ModalAdd({ setModalAddbutton }) {
   const [phrase, setPhrase] = useState("");
   const [wordsinput, setwordsinput] = useState("");
   const [words, setWords] = useState<string[]>([]);
+  const [whichDB, setwhichDB] = useState(0);
 
   const handleChangePhrase = (event) => {
     setPhrase(event.target.value.toUpperCase());
@@ -15,14 +16,24 @@ export function ModalAdd({ setModalAddbutton }) {
   };
 
   const addPhrase = () => {
+    const dataDB = PhraseStorage.getAll(0);
+    const lastId =
+      dataDB.length > 0 ? Math.max(...dataDB.map((item) => item.id ?? 0)) : 0;
+    const nextId = lastId + 1;
     if (phrase) {
-      PhraseStorage.add({
-        phrase: phrase,
-        words: words,
-        qtdWord: phrase.trim().split(/\s+/).length,
-      });
+      PhraseStorage.add(
+        {
+          id: nextId,
+          phrase: phrase,
+          words: words,
+          qtdWord: phrase.trim().split(/\s+/).length,
+          difficulty: 999,
+        },
+        whichDB
+      );
     }
     setModalAddbutton(false);
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -58,15 +69,18 @@ export function ModalAdd({ setModalAddbutton }) {
   return (
     <div className={styles.modalBackground}>
       <div className={styles.modalContainer}>
-        <div className={styles.titleCloseBtn}>
-          <button onClick={closeModal}>X</button>
+        <div className={styles.titleCont}>
+          <div className={styles.title}>
+            <h1>Add Phrase</h1>
+          </div>
+          <div className={styles.titleCloseBtn}>
+            <button onClick={closeModal}>X</button>
+          </div>
         </div>
-        <div className={styles.title}>
-          <h1>Add Phrase</h1>
-        </div>
+
         <div className={styles.body}>
           <div className={styles.inputs}>
-            <label>Correct Sentence </label>
+            <label>Sentence</label>
             <input
               placeholder="I HATE ENGLISH"
               type="text"

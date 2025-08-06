@@ -55,3 +55,47 @@
   filter: brightness(110%);
   color: #fff;
 }
+
+@media (max-width: 768px) {
+  .headerMenu {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    font-size: clamp(0.8rem, 2vw, 1rem);
+  }
+
+  .headerMenu div {
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .button {
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    justify-content: center;
+  }
+
+  .Bimg {
+    width: 30px;
+  }
+
+  .MenuIcons {
+    flex-direction: row;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    font-size: 0.8rem;
+    padding: 0.4rem;
+  }
+
+  .headerMenu h1 {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+}

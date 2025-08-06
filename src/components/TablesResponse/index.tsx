@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./styles.module.css";
 
 export function TablesResponse({ dataSave, setDataSave }) {
-  const [showResponse, setShowResponse] = useState(true);
+  const [showResponse, setShowResponse] = useState(false);
   useEffect(() => {
     console.log("📦 dataSave updated in TablesResponse:", dataSave);
   }, [dataSave]);
