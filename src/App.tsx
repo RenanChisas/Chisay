@@ -7,6 +7,7 @@ import { ModalAdd } from "./components/ModalAdd";
 import { ModalConfig } from "./components/ModalConfig";
 import { PhraseStorage } from "./PhraseStorage/PhraseStorage";
 import type { dataSave } from "./props/dataSaveProps";
+import { Footer } from "./components/Footer";
 
 function App() {
   const [ModalAddbutton, setModalAddbutton] = useState<boolean>(false);
@@ -36,6 +37,7 @@ function App() {
       <div className={styles.table}>
         <TablesResponse dataSave={dataSave} />
       </div>
+      <Footer />
       {ModalAddbutton ? <ModalAdd setModalAddbutton={setModalAddbutton} /> : ""}
       {ModalConfigbutton ? (
         <ModalConfig setModalConfigbutton={setModalConfigbutton} />

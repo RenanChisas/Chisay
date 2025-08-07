@@ -1,0 +1,23 @@
+.MenuIcons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5em 1rem;
+  background-color: #397097;
+  color: #d9d9d9;
+}
+
+.item {
+  display: flex;
+  margin: 0.5rem;
+  gap: 2rem;
+  align-items: center;
+}
+
+.MenuIcons a {
+  color: #d9d9d9;
+}
+
+.itemOne {
+  display: flex;
+}
