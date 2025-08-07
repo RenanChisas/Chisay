@@ -158,30 +158,40 @@ export function Content({ dataSave, setDataSave }: ContentProps) {
     return formatedPhrase;
   };
   const changeCount = (value: number) => {
+    console.log(count);
     if (index < dataDB.length) {
       setCount((prev) => prev + value);
     }
   };
-  const addOrRemoveWord = (word: string) => {
-    setPhrase((prev) => {
-      if (prev.includes(word)) {
+  const addOrRemoveWord = (index: number) => {
+    const word = words[index]?.word;
+    if (!word) return;
+
+    setPhrase((prevPhrase) => {
+      if (words[index]?.active) {
         changeCount(-1);
-        return prev.filter((w) => w !== word);
+        const firstIndex = prevPhrase.indexOf(word);
+        if (firstIndex === -1) return prevPhrase;
+
+        return [
+          ...prevPhrase.slice(0, firstIndex),
+          ...prevPhrase.slice(firstIndex + 1),
+        ];
       } else {
-        changeCount(+1);
-        return [...prev, word];
+        changeCount(1);
+        return [...prevPhrase, word];
       }
     });
   };
 
-  const activeWord = (indexToToggle: number, word: string) => {
-    setWords((prevWords: WordItem[]) =>
+  const activeWord = (indexToToggle: number) => {
+    setWords((prevWords) =>
       prevWords.map((item, index) =>
         index === indexToToggle ? { ...item, active: !item.active } : item
       )
     );
 
-    addOrRemoveWord(word);
+    addOrRemoveWord(indexToToggle);
   };
 
   const reset = () => {
@@ -221,7 +231,7 @@ export function Content({ dataSave, setDataSave }: ContentProps) {
             {words.map((item, index) => (
               <button
                 key={index}
-                onClick={() => activeWord(index, item.word)}
+                onClick={() => activeWord(index)}
                 className={`${styles.buttonWord} ${
                   item.active ? styles.active : ""
                 }`}
